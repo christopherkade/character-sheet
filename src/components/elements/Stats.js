@@ -41,51 +41,52 @@ const StatName = styled.h2`
     font-size: 0.6rem;
 `
 
+const calculateModifier = (statValue) => {
+    const mod = Math.floor(statValue / 2) - 5;
+
+    return mod > 0 ? `+${mod}` : mod
+}
+
 const Stats = ({ str, dex, cons, intel, wis, char }) => {
+    const stats = [{
+        name: "STRENGTH",
+        modifier: calculateModifier(str),
+        value: str
+    }, {
+        name: "DEXTERITY",
+        modifier: calculateModifier(dex),
+        value: dex
+    }, {
+        name: "CONSTITUTION",
+        modifier: calculateModifier(cons),
+        value: cons
+    }, {
+        name: "INTELLIGENCE",
+        modifier: calculateModifier(intel),
+        value: intel
+    }, {
+        name: "WISDOM",
+        modifier: calculateModifier(wis),
+        value: wis
+    }, {
+        name: "CHARISMA",
+        modifier: calculateModifier(char),
+        value: char
+    }]
+
     return (
         <Wrapper>
-            <StatBox>
-                <StatName>STRENGTH</StatName>
-                {str}
-                <BonusCircle>
-                    +1
-                </BonusCircle>
-            </StatBox>
-            <StatBox>
-                <StatName>DEXTERITY</StatName>
-                {dex}
-                <BonusCircle>
-                    +1
-                </BonusCircle>
-            </StatBox>
-            <StatBox>
-                <StatName>CONSTITUTION</StatName>
-                {cons}
-                <BonusCircle>
-                    +1
-                </BonusCircle>
-            </StatBox>
-            <StatBox>
-                <StatName>INTELLIGENCE</StatName>
-                {intel}
-                <BonusCircle>
-                    +1
-                </BonusCircle>
-            </StatBox>
-            <StatBox>
-                <StatName>WISDOM</StatName>
-                {wis}
-                <BonusCircle>
-                    +1
-                </BonusCircle>
-            </StatBox>
-            <StatBox>
-                <StatName>CHARISMA</StatName>
-                {char}
-                <BonusCircle>
-                    +1
-                </BonusCircle>
-            </StatBox>
+            {stats.map(({ name, modifier, value }) => {
+                return (
+                    <StatBox>
+                        <StatName>{name})</StatName>
+                        {value}
+                        <BonusCircle>
+                            {modifier}
+                        </BonusCircle>
+                    </StatBox>
+                )
+            })}
         </Wrapper>
     )
 }
